@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class FollowPlayer : MonoBehaviour {
@@ -12,6 +10,8 @@ public class FollowPlayer : MonoBehaviour {
     [SerializeField] float minJumpAngle = 10f;
     [SerializeField] float jumpRate = 1f;
 
+
+    Slime slime;
     Transform player;
     Rigidbody rb;
 
@@ -23,6 +23,7 @@ public class FollowPlayer : MonoBehaviour {
     bool isPlayerVisible;
 
     void Start() {
+        slime = GetComponent<Slime>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
         sqrViewDistance = viewDistance * viewDistance;
@@ -47,7 +48,7 @@ public class FollowPlayer : MonoBehaviour {
     }
 
     bool CheckCollisionWithFloor() {
-        Ray ray = new Ray(transform.position - new Vector3(0f, 1f, 0f), Vector3.down);
+        Ray ray = new Ray(transform.position - new Vector3(0f, slime.Level, 0f), Vector3.down);
 
         if (Physics.Raycast(ray, stayTreshold)) {
             return true;

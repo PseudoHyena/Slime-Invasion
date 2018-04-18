@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
-using Random = UnityEngine.Random;
 
+[RequireComponent(typeof(Slime))]
 public class GunShoot : MonoBehaviour {
 
 	[SerializeField] float fireRate = 0.25f;										
@@ -41,7 +40,7 @@ public class GunShoot : MonoBehaviour {
             Debug.DrawRay(rayOrigin, cam.transform.forward * weaponRange, Color.red, 2f, true);
 
             if (Physics.Raycast(ray, out hit, weaponRange)) {
-                Debug.Log($"Player hit {hit.collider}");
+                Debug.Log($"Player hit {hit.collider.name}, id:{hit.collider.GetInstanceID()}");
 
                 if (hit.collider.tag == "Slime") {
                     hit.collider.GetComponent<Slime>().TakeDamage(damage);
