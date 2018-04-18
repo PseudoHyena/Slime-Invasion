@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 223867440948996190}
   - component: {fileID: 114835686763465094}
   - component: {fileID: 114286296823419216}
+  - component: {fileID: 114856256730079890}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -150,7 +151,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1181629731257304}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.3033466, y: 1.18, z: -0.17350602}
+  m_LocalPosition: {x: -1.3033466, y: 1, z: -0.17350602}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4173996124488876}
@@ -290,7 +291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb993a9da87eb246866727757ee0d9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewDistance: 30
+  viewDistance: 20
   AttackDistance: 5
   jumpForce: 15
   maxJumpAngle: 20
@@ -335,7 +336,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  healthSlider: {fileID: 0}
 --- !u!114 &114835686763465094
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -357,6 +357,17 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114856256730079890
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1402040203983238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2ac422416f8ecf4ab5fc0f2e710b203, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114895740808029818
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -369,7 +380,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

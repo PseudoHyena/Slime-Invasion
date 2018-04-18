@@ -31,11 +31,11 @@ public class FollowPlayer : MonoBehaviour {
     }
 
     void Update() {
-        CheckVisibility(); 
+        CheckVisibility();
+        ChooseTarget();
     }
 
     void FixedUpdate() {
-        ChooseTarget();
     }
 
     void CheckVisibility() {
@@ -57,23 +57,29 @@ public class FollowPlayer : MonoBehaviour {
     }
 
     void ChooseTarget() {
-        if (isPlayerVisible) {
-            Follow(player.position);
-        }
-        else {
-            Follow(transform.position 
-                + new Vector3(Random.Range(-viewDistance, viewDistance), 0f, Random.Range(-viewDistance, viewDistance)));
+        if (Time.time >= nextJump && CheckCollisionWithFloor()) {
+            nextJump = Time.time + jumpRate;
+
+            if (isPlayerVisible) {
+                Follow(player.position);
+            }
+            else {
+                Vector3 dest = transform.position
+                    + new Vector3(Random.Range(-viewDistance, viewDistance), 0f, Random.Range(-viewDistance, viewDistance));
+
+                dest.x = Mathf.Clamp(dest.x, -GameManager.GameFieldLength, GameManager.GameFieldLength);
+                dest.z = Mathf.Clamp(dest.z, -GameManager.GameFieldLength, GameManager.GameFieldLength);
+                dest.y = 1f;
+
+                Follow(dest);
+            }
         }
     }
 
     void Follow(Vector3 pos) {
-        if (Time.time >= nextJump && CheckCollisionWithFloor()) {
-            nextJump = Time.time + jumpRate;
+        Vector3 fromSlimeToPlayer = (pos - transform.position);
+        fromSlimeToPlayer.y = Mathf.Lerp(minJumpAngle, maxJumpAngle, fromSlimeToPlayer.magnitude / viewDistance / AttackDistance);
 
-            Vector3 fromSlimeToPlayer = (pos - transform.position);
-            fromSlimeToPlayer.y = Mathf.Lerp(minJumpAngle, maxJumpAngle, fromSlimeToPlayer.magnitude / viewDistance / AttackDistance);
-
-            rb.AddForce(fromSlimeToPlayer.normalized * jumpForce, ForceMode.Impulse);
-        }
+        rb.AddForce(fromSlimeToPlayer.normalized * jumpForce, ForceMode.Impulse);
     }
 }

@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour {
 
     public bool EndGame { get; private set; } = false;
 
+    public static float GameFieldLength { get; set; } = 28f;
+
     [SerializeField] Text status;
 
     public void GameOver() {
