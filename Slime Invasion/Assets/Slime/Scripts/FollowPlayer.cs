@@ -34,9 +34,7 @@ public class FollowPlayer : MonoBehaviour {
     void Update() {
         CheckVisibility();
         ChooseTarget();
-    }
-
-    void FixedUpdate() {
+        LookAtPlayer();
     }
 
     void CheckVisibility() {
@@ -82,5 +80,13 @@ public class FollowPlayer : MonoBehaviour {
         fromSlimeToPlayer.y = Mathf.Lerp(minJumpAngle, maxJumpAngle, fromSlimeToPlayer.magnitude / viewDistance / AttackDistance);
 
         rb.AddForce(fromSlimeToPlayer.normalized * jumpForce, ForceMode.Impulse);
+    }
+
+    void LookAtPlayer() {
+        Vector3 direction = player.position - transform.position;
+        direction.y = 0f;
+        direction *= Time.deltaTime;
+
+        transform.rotation = Quaternion.LookRotation(direction);
     }
 }

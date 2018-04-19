@@ -9,7 +9,7 @@ public class Dynamite : MonoBehaviour, IDamageable {
     [SerializeField] float explosionForce = 10f;
     [SerializeField] int maxDamage = 200;
     [SerializeField] int minDamage = 50;
-
+    [SerializeField] GameObject explosionEffect;
     int health = 1;
 
     Slime parent;
@@ -33,7 +33,10 @@ public class Dynamite : MonoBehaviour, IDamageable {
     }
 
     public void Explode() {
-        //Effect 
+        if (explosionEffect != null) {
+            Instantiate(explosionEffect, transform.position, Quaternion.identity).SetActive(true);
+        }
+
         DamageAll();
 
         Destroy(gameObject);
