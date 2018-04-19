@@ -11,9 +11,11 @@ public class Player : MonoBehaviour {
     GameManager manager;
 
     void Start() {
-        manager = FindObjectOfType<GameManager>();
-
         health = maxHealth;
+        healthSlider.maxValue = maxHealth;
+        healthSlider.value = maxHealth;
+
+        manager = FindObjectOfType<GameManager>();
     }
 
     public void TakeDamage(int damage) {
