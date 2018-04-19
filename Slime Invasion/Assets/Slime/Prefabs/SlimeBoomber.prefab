@@ -172,7 +172,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1450743793881462}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.3033466, y: 1, z: -0.17350602}
+  m_LocalPosition: {x: -2.53, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4631973798536446}
@@ -327,7 +327,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1761124111157768}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 12.210153, y: 7.2601266, z: 29.88869}
@@ -452,9 +452,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToExplode: 8
-  explosionRadius: 10
-  explosionForce: 20
-  maxDamage: 100
+  explosionRadius: 7
+  explosionForce: 50
+  maxDamage: 150
+  minDamage: 50
 --- !u!114 &114672587883247652
 MonoBehaviour:
   m_ObjectHideFlags: 1

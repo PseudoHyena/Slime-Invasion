@@ -42,8 +42,9 @@ public class GunShoot : MonoBehaviour {
             if (Physics.Raycast(ray, out hit, weaponRange)) {
                 Debug.Log($"Player hit {hit.collider.name}, id:{hit.collider.GetInstanceID()}");
 
-                if (hit.collider.tag == "Slime") {
-                    hit.collider.GetComponent<Slime>().TakeDamage(damage);
+                IDamageable damageableObj = hit.collider.GetComponent<IDamageable>();
+                if (damageableObj != null) {
+                    damageableObj.TakeDamage(damage);
                 }
             }
         }

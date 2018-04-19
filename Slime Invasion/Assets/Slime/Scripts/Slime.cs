@@ -103,8 +103,13 @@ public class Slime : MonoBehaviour, IDamageable {
     }
 
     void OnCollisionEnter(Collision collision) {
-        if (collision.gameObject.tag == "Player") {
-            collision.gameObject.GetComponent<Player>().TakeDamage(damage);
+        if (collision.gameObject.tag == "Slime") {
+            return;
+        }
+
+        IDamageable damageableObj = collision.gameObject.GetComponent<IDamageable>();
+        if (damageableObj != null) {
+            damageableObj.TakeDamage(damage);
         }
     }
 }

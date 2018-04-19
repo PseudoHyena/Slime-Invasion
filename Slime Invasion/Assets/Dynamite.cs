@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dynamite : MonoBehaviour {
+public class Dynamite : MonoBehaviour, IDamageable {
 
     [SerializeField] float timeToExplode = 8f;
-    [SerializeField] float explosionRadius = 10f;
+    [SerializeField] float explosionRadius = 15f;
     [SerializeField] float explosionForce = 10f;
     [SerializeField] int maxDamage = 200;
+    [SerializeField] int minDamage = 50;
+
+    int health = 1;
 
     Slime parent;
 
@@ -20,7 +23,7 @@ public class Dynamite : MonoBehaviour {
     }
 
     void Update() {
-        WaitForExploding();    
+        WaitForExploding();
     }
 
     void WaitForExploding() {
@@ -31,9 +34,9 @@ public class Dynamite : MonoBehaviour {
 
     public void Explode() {
         //Effect 
-
         DamageAll();
 
+        Destroy(gameObject);
         parent.Die(true);
     }
 
@@ -41,6 +44,10 @@ public class Dynamite : MonoBehaviour {
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
 
         foreach (var item in colliders) {
+            if (item == GetComponent<Collider>() || item == parent.GetComponent<Collider>()) {
+                continue;
+            }
+
             Rigidbody rb = item.GetComponent<Rigidbody>();
 
             if (rb != null) {
@@ -50,8 +57,16 @@ public class Dynamite : MonoBehaviour {
             IDamageable damageableObj = item.GetComponent<IDamageable>();
 
             if (damageableObj != null) {
-                damageableObj.TakeDamage(maxDamage / ((int)(item.transform.position - transform.position).magnitude + 1));
+                damageableObj.TakeDamage((int)Mathf.Lerp(maxDamage, minDamage, (item.transform.position - transform.position).magnitude / explosionRadius));
             }
+        }
+    }
+
+    public void TakeDamage(int damage) {
+        health -= damage;
+
+        if (health <= 0) {
+            Explode();
         }
     }
 }
