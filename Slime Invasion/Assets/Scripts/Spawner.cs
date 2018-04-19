@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour {
 
-    [SerializeField] GameObject prefab;
+    [SerializeField] GameObject regularPrefab;
+    [SerializeField] GameObject boomerPrefab;
+
+    [SerializeField][Range(0, 100)] int spawnBoomerChanсe; 
+
     [SerializeField] float spawnRate = 20f;
 
     [SerializeField] int startMaxHealth = 100;
@@ -28,10 +32,18 @@ public class Spawner : MonoBehaviour {
             pos.z = Mathf.Clamp(pos.z, -GameManager.GameFieldLength, GameManager.GameFieldLength);
             pos.y = 1f;
 
-            GameObject go = Instantiate(prefab, pos, Quaternion.identity);
-            go.name = $"Slime lvl:{startLevel}";
-            go.transform.localScale = Vector3.one * startLevel;
-            go.GetComponent<Slime>().Initialize(startMaxHealth, startDamage, startLevel);
+            if (Random.Range(0, 100) <= spawnBoomerChanсe) {
+                GameObject go = Instantiate(boomerPrefab, pos, Quaternion.identity);
+                go.name = $"Slime lvl:{startLevel}, type: {SlimeType.Boomer.ToString()}";
+                go.transform.localScale = Vector3.one * startLevel;
+                go.GetComponent<Slime>().Initialize(startMaxHealth, startDamage, startLevel, SlimeType.Boomer);
+            }
+            else {
+                GameObject go = Instantiate(regularPrefab, pos, Quaternion.identity);
+                go.name = $"Slime lvl:{startLevel}, type: {SlimeType.Regular.ToString()}";
+                go.transform.localScale = Vector3.one * startLevel;
+                go.GetComponent<Slime>().Initialize(startMaxHealth, startDamage, startLevel);
+            }
         }
     }
 }

@@ -216,7 +216,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4269091628256152, guid: 5a44b7c64639d9e4881febb0f2f620fd, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 198054801706054950, guid: 5a44b7c64639d9e4881febb0f2f620fd,
         type: 2}
@@ -260,7 +260,7 @@ Transform:
   - {fileID: 2017547992}
   - {fileID: 1150411108}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &641804998
 GameObject:
@@ -419,7 +419,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e54979793cd155f4ba12ac91d4167ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 1181629731257304, guid: ddea301522d2a904db7816a0faa99f67, type: 2}
+  regularPrefab: {fileID: 1181629731257304, guid: ddea301522d2a904db7816a0faa99f67,
+    type: 2}
+  boomerPrefab: {fileID: 1450743793881462, guid: 033510aba5af62344a22ae03a1580852,
+    type: 2}
+  "spawnBoomerChan\u0441e": 12
   spawnRate: 20
   startMaxHealth: 100
   startDamage: 50

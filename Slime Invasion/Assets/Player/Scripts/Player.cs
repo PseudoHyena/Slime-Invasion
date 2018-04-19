@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour, IDamageable {
 
     [SerializeField] int maxHealth = 100;
     [SerializeField] Slider healthSlider;
@@ -30,7 +30,7 @@ public class Player : MonoBehaviour {
         }
     }
 
-    void Die() {
+    public void Die() {
         manager.GameOver();
     }
 }
