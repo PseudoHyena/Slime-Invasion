@@ -18,6 +18,10 @@ public class Player : MonoBehaviour, IDamageable {
         manager = FindObjectOfType<GameManager>();
     }
 
+    void Update() {
+        CheckForOutOfMap();
+    }
+
     public void TakeDamage(int damage) {
         health = Mathf.Clamp(health - damage, 0, maxHealth);
 
@@ -26,6 +30,12 @@ public class Player : MonoBehaviour, IDamageable {
         healthSlider.value = health;
 
         if (health <= 0) {
+            Die();
+        }
+    }
+
+    void CheckForOutOfMap() {
+        if (transform.position.y < GameManager.GameBottomBorder) {
             Die();
         }
     }

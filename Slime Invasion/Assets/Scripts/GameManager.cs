@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour {
     public bool EndGame { get; private set; } = false;
 
     public static float GameFieldLength { get; set; } = 28f;
+    public static float GameBottomBorder { get; set; } = -10f;
 
     [SerializeField] Text status;
 

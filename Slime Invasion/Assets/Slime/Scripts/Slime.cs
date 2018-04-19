@@ -41,6 +41,10 @@ public class Slime : MonoBehaviour, IDamageable {
         health = maxHealth;
     }
 
+    void Update() {
+        CheckForOutOfMap();    
+    }
+
     public void TakeDamage(int damage) {
         health = Mathf.Clamp(health - damage, 0, maxHealth);
 
@@ -49,6 +53,12 @@ public class Slime : MonoBehaviour, IDamageable {
         healthSlider.value = health;
 
         if (health <= 0) {
+            Die();
+        }
+    }
+
+    void CheckForOutOfMap() {
+        if (transform.position.y < GameManager.GameBottomBorder) {
             Die();
         }
     }
@@ -78,11 +88,10 @@ public class Slime : MonoBehaviour, IDamageable {
 
         for (int i = 1; i <= 2; ++i) {
             Vector3 pos = transform.position
-                    + new Vector3(Random.Range(-i * 2f, i * 2f), 0f, Random.Range(-i * 2f, i * 2f));
+                    + new Vector3(Random.Range(-i * 2f, i * 2f), Random.Range(0, 1), Random.Range(-i * 2f, i * 2f));
 
             pos.x = Mathf.Clamp(pos.x, -GameManager.GameFieldLength, GameManager.GameFieldLength);
             pos.z = Mathf.Clamp(pos.z, -GameManager.GameFieldLength, GameManager.GameFieldLength);
-            pos.y = 1f;
 
             GameObject go = Instantiate(regularPrefab, pos, Quaternion.identity);
             go.name = $"Slime lvl:{Level / splitIndex}, type: {SlimeType.Regular.ToString()}";
