@@ -787,7 +787,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb993a9da87eb246866727757ee0d9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewDistance: 20
+  viewDistance: 50
   AttackDistance: 5
   jumpForce: 15
   maxJumpAngle: 20

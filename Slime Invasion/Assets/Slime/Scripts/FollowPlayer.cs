@@ -25,7 +25,7 @@ public class FollowPlayer : MonoBehaviour {
     void Start() {
         slime = GetComponent<Slime>();
 
-        sqrViewDistance = viewDistance * viewDistance;
+        sqrViewDistance = viewDistance * viewDistance * slime.Level * slime.Level;
 
         rb = GetComponent<Rigidbody>();
     }
