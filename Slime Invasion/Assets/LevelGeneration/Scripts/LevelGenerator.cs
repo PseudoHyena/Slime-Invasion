@@ -6,9 +6,11 @@ public class LevelGenerator : MonoBehaviour {
 
     [SerializeField] NoiseSettings noiseSettings;
     [SerializeField] [Range(1f, 50f)] float heightMultiplier;
-    
+    [SerializeField] AnimationCurve heightCurve;
+
     [SerializeField] MeshFilter meshFilter;
     [SerializeField] MeshRenderer meshRenderer;
+    [SerializeField] MeshCollider meshCollider;
 
     [SerializeField] TerrainType[] regions;
 
@@ -22,14 +24,14 @@ public class LevelGenerator : MonoBehaviour {
         noiseSettings.ValidateValues();
 
         noiseMap = Noise.GenerateNoiseMap(noiseSettings);
-
         ApplyFalloff();
 
-        DrawMesh(MeshGenerator.GenerateMesh(noiseMap, heightMultiplier), GenerateTexture());
+        DrawMesh(MeshGenerator.GenerateMesh(noiseMap, heightMultiplier, heightCurve), GenerateTexture());
     }
 
     void DrawMesh(MeshData meshData, Texture2D texture) {
         meshFilter.sharedMesh = meshData.CreateMesh();
+        meshCollider.sharedMesh = meshData.CreateMesh();
         meshRenderer.sharedMaterial.mainTexture = texture;
     }
 
