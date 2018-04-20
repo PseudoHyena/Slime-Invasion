@@ -15,7 +15,12 @@ public class Spawner : MonoBehaviour {
     [SerializeField] int startDamage = 50;
     [SerializeField] float startLevel = 1f;
 
+    bool canSpawn = false;
     float nextSpawn;
+
+    void Start() {
+        LevelGenerator.singleton.OnEndOfLevelGeneration += BeginSpawn;    
+    }
 
     void Update() {
         Spawn();
@@ -44,5 +49,9 @@ public class Spawner : MonoBehaviour {
                 go.GetComponent<Slime>().Initialize(startMaxHealth, startDamage, startLevel);
             }
         }
+    }
+
+    void BeginSpawn() {
+        canSpawn = true;
     }
 }

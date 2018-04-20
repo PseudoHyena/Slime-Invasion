@@ -24,7 +24,6 @@ public class FollowPlayer : MonoBehaviour {
 
     void Start() {
         slime = GetComponent<Slime>();
-        player = GameObject.FindGameObjectWithTag("Player").transform;
 
         sqrViewDistance = viewDistance * viewDistance;
 
@@ -32,9 +31,21 @@ public class FollowPlayer : MonoBehaviour {
     }
 
     void Update() {
+        if (player == null) {
+            CheckForPlayer();
+            return;
+        }
+
         CheckVisibility();
         ChooseTarget();
         LookAtPlayer();
+    }
+
+    void CheckForPlayer() {
+        GameObject go = GameObject.FindGameObjectWithTag("Player");
+        if (go != null) {
+            player = go.transform;
+        }
     }
 
     void CheckVisibility() {

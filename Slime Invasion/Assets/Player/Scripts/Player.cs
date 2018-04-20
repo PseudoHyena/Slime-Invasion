@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class Player : MonoBehaviour, IDamageable {
 
@@ -7,6 +8,8 @@ public class Player : MonoBehaviour, IDamageable {
     [SerializeField] Slider healthSlider;
 
     float health;
+
+    float waterHeight;
 
     GameManager manager;
 
@@ -16,10 +19,13 @@ public class Player : MonoBehaviour, IDamageable {
         healthSlider.value = maxHealth;
 
         manager = FindObjectOfType<GameManager>();
+
+        waterHeight = GameManager.WaterHeight;
     }
 
     void Update() {
         CheckForOutOfMap();
+        CheckForUnderWater();
     }
 
     public void TakeDamage(int damage) {
@@ -37,6 +43,12 @@ public class Player : MonoBehaviour, IDamageable {
     void CheckForOutOfMap() {
         if (transform.position.y < GameManager.GameBottomBorder) {
             Die();
+        }
+    }
+
+    void CheckForUnderWater() {
+        if (transform.position.y < waterHeight) {
+            Debug.Log("Water!");
         }
     }
 

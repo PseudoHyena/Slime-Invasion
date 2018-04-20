@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour {
 
@@ -20,6 +18,7 @@ public class LevelGenerator : MonoBehaviour {
 
     float[,] noiseMap;
 
+    public NoiseSettings Settings { get { return noiseSettings; } }
     public float[,] HeightMap { get; set; } = null;
 
     void Awake() {
