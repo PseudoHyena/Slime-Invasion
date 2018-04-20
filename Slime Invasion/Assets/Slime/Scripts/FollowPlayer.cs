@@ -18,7 +18,7 @@ public class FollowPlayer : MonoBehaviour {
     float nextJump;
 
     float sqrViewDistance;
-    float stayTreshold = 0.05f;
+    float stayTreshold = 0.1f;
 
     bool isPlayerVisible;
 
@@ -46,9 +46,17 @@ public class FollowPlayer : MonoBehaviour {
     }
 
     bool CheckCollisionWithFloor() {
-        Ray ray = new Ray(transform.position - new Vector3(0f, slime.Level, 0f), Vector3.down);
+        Vector3 point1 = transform.position;
+        Vector3 point2 = point1;
+        point2.y += stayTreshold;
 
-        if (Physics.Raycast(ray, stayTreshold)) {
+        RaycastHit hit;
+
+        if (Physics.CapsuleCast(point1, point2, slime.Level, Vector3.down, out hit, stayTreshold)) {
+            Debug.Log(hit.collider);
+            if (hit.collider.GetComponent<Collider>() == GetComponent<Collider>()) {
+                return false;
+            }
             return true;
         }
 
