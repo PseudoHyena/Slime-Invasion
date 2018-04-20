@@ -60,6 +60,6 @@ public class GameManager : MonoBehaviour {
             }
         }
 
-        player.transform.position = new Vector3(maxX - size / 2, maxHeight + 1f, maxY - size / 2);
+        player.transform.position = new Vector3(maxX - size / 2, maxHeight + 1f,  size / 2 - maxY);
     }
 }
