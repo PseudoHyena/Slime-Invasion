@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour {
 
+    public static LevelGenerator singleton;
+
+    public System.Action OnEndOfLevelGeneration;
+
     [SerializeField] NoiseSettings noiseSettings;
     [SerializeField] [Range(1f, 50f)] float heightMultiplier;
     [SerializeField] AnimationCurve heightCurve;
@@ -16,6 +20,12 @@ public class LevelGenerator : MonoBehaviour {
 
     float[,] noiseMap;
 
+    public float[,] HeightMap { get; set; } = null;
+
+    void Awake() {
+        singleton = this;    
+    }
+
     void Start() {
         GenerateLevel();    
     }
@@ -24,9 +34,11 @@ public class LevelGenerator : MonoBehaviour {
         noiseSettings.ValidateValues();
 
         noiseMap = Noise.GenerateNoiseMap(noiseSettings);
-        ApplyFalloff();
+        ApplyModifications();
 
-        DrawMesh(MeshGenerator.GenerateMesh(noiseMap, heightMultiplier, heightCurve), GenerateTexture());
+        DrawMesh(MeshGenerator.GenerateMesh(HeightMap), GenerateTexture());
+
+        OnEndOfLevelGeneration?.Invoke();
     }
 
     void DrawMesh(MeshData meshData, Texture2D texture) {
@@ -56,12 +68,14 @@ public class LevelGenerator : MonoBehaviour {
         return texture;
     }
 
-    void ApplyFalloff() {
+    void ApplyModifications() {
+        HeightMap = new float[noiseSettings.size, noiseSettings.size];
         float[,] falloff = FalloffGenerator.GenerateFalloffMap(noiseSettings.size);
 
         for (int y = 0; y < noiseSettings.size; y++) {
             for (int x = 0; x < noiseSettings.size; x++) {
                 noiseMap[y, x] = Mathf.Clamp01(noiseMap[y, x] - falloff[y, x]);
+                HeightMap[y, x] = heightCurve.Evaluate(noiseMap[y, x]) * heightMultiplier;
             }
         }
     }

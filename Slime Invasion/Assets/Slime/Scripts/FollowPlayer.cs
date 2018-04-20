@@ -53,7 +53,6 @@ public class FollowPlayer : MonoBehaviour {
         RaycastHit hit;
 
         if (Physics.CapsuleCast(point1, point2, slime.Level, Vector3.down, out hit, stayTreshold)) {
-            Debug.Log(hit.collider);
             if (hit.collider.GetComponent<Collider>() == GetComponent<Collider>()) {
                 return false;
             }

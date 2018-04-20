@@ -10,6 +10,11 @@ public class GameManager : MonoBehaviour {
     public static float GameBottomBorder { get; set; } = -10f;
 
     [SerializeField] Text status;
+    [SerializeField] GameObject playerPrefab;
+
+    void Start() {
+        LevelGenerator.singleton.OnEndOfLevelGeneration += SpawnPlayer;
+    }
 
     public void GameOver() {
         EndGame = true;
@@ -28,4 +33,8 @@ public class GameManager : MonoBehaviour {
     void Restart() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     } 
+
+    void SpawnPlayer() {
+        Instantiate(playerPrefab, new Vector3(0f, 12f, 0f), Quaternion.identity).name = "Player";
+    }
 }
