@@ -77,12 +77,16 @@ public class NoiseSettings {
     [Range(0f, 1f)] public float persistance = 0.5f;
     public float lacunarity = 3f;
 
-    public int seed;
+    public int seed = 0;
 
     public void ValidateValues() {
         scale = Mathf.Max(scale, 0.01f);
         octaves = Mathf.Max(octaves, 1);
         lacunarity = Mathf.Max(lacunarity, 1f);
         persistance = Mathf.Clamp01(persistance);
+
+        if (seed == 0) {
+            seed = System.DateTime.Now.Millisecond;
+        }
     }
 }
