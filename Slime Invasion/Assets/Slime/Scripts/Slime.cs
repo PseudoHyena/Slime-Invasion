@@ -93,10 +93,27 @@ public class Slime : MonoBehaviour, IDamageable {
             pos.x = Mathf.Clamp(pos.x, -GameManager.GameFieldLength, GameManager.GameFieldLength);
             pos.z = Mathf.Clamp(pos.z, -GameManager.GameFieldLength, GameManager.GameFieldLength);
 
-            GameObject go = Instantiate(regularPrefab, pos, Quaternion.identity);
+            GameObject go = Instantiate(regularPrefab, pos, Quaternion.identity, transform.parent);
             go.name = $"Slime lvl:{Level / splitIndex}, type: {SlimeType.Regular.ToString()}";
             go.transform.localScale = Vector3.one * (Level / splitIndex);
             go.GetComponent<Slime>().Initialize(maxHealth / splitIndex, damage / splitIndex, Level / splitIndex);
+
+            if (Level == 1f) {
+                Spawner.MediumSlimesCount++;
+            }
+            else if (Level == 0.5f) {
+                Spawner.SmallSlimesCount++;
+            }
+        }
+
+        if (Level == 1f) {
+            Spawner.BigSlimesCount--;
+        }
+        else if (Level == 0.5f) {
+            Spawner.MediumSlimesCount--;
+        }
+        else {
+            Spawner.SmallSlimesCount--;
         }
 
         Destroy(gameObject);
