@@ -1055,6 +1055,9 @@ MonoBehaviour:
   maxHealth: 100
   healthSlider: {fileID: 114971400547181352}
   airSlider: {fileID: 114269186790708706}
+  dynamite: {fileID: 1569481400634376, guid: c19bbb4863fa85244b0928de0e2bf0e2, type: 2}
+  throwRate: 0.5
+  throwForce: 15
 --- !u!124 &124928565472906632
 Behaviour:
   m_ObjectHideFlags: 1

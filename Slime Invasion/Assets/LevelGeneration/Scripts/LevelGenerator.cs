@@ -16,9 +16,13 @@ public class LevelGenerator : MonoBehaviour {
 
     [SerializeField] TerrainType[] regions;
 
+    VegetationGenerator vegetationGenerator;
+
     float[,] noiseMap;
 
     public NoiseSettings Settings { get { return noiseSettings; } }
+    public TerrainType[] Regions { get { return regions; } }
+    public float[,] NoiseMap { get { return noiseMap; } }
     public float[,] HeightMap { get; set; } = null;
 
     void Awake() {
@@ -26,7 +30,9 @@ public class LevelGenerator : MonoBehaviour {
     }
 
     void Start() {
-        GenerateLevel();    
+        GenerateLevel();
+        vegetationGenerator = GetComponent<VegetationGenerator>();
+        vegetationGenerator.Generate();
     }
 
     public void GenerateLevel() {

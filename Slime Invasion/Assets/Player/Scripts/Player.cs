@@ -16,6 +16,12 @@ public class Player : MonoBehaviour, IDamageable {
     [SerializeField] Slider healthSlider;
     [SerializeField] Slider airSlider;
 
+    [SerializeField] GameObject dynamite;
+    [SerializeField] float throwRate = 0.5f;
+    [SerializeField] float throwForce = 10f;
+
+    float nextThrow;
+
     float health;
 
     float waterHeight;
@@ -28,6 +34,8 @@ public class Player : MonoBehaviour, IDamageable {
     MovementPresset movementPresset;
     RigidbodyFirstPersonController controller;
     CapsuleCollider capsuleCollider;
+
+    Transform cam;
 
     void Start() {
         health = maxHealth;
@@ -43,12 +51,15 @@ public class Player : MonoBehaviour, IDamageable {
         airSlider.maxValue = canBreathSec;
         airSlider.value = canBreathSec;
 
+        cam = GetComponentInChildren<Camera>().transform;
+
         SetMovementPresset();
     }
 
     void Update() {
         CheckForOutOfMap();
         CheckForWaterImpact();
+        CheckForDynamiteThrow();
     }
 
     void SetMovementPresset() {
@@ -60,6 +71,10 @@ public class Player : MonoBehaviour, IDamageable {
     }
 
     public void TakeDamage(int damage) {
+        if (health <= 0) {
+            return;
+        }
+
         health = Mathf.Clamp(health - damage, 0, maxHealth);
 
         Debug.Log($"{gameObject.name}, id:{gameObject.GetInstanceID()} take {damage} damage, {health} remain");
@@ -114,6 +129,21 @@ public class Player : MonoBehaviour, IDamageable {
                 Die();
             }
         }
+    }
+
+    void CheckForDynamiteThrow() {
+        if (Input.GetButton("Fire2") && Time.time > nextThrow) {
+            nextThrow = Time.time + throwRate;
+            ThrowDynamite();
+        }
+    }
+
+    void ThrowDynamite() {
+        GameObject go = Instantiate(dynamite, transform.position, Quaternion.identity);
+
+        Rigidbody rb = go.GetComponent<Rigidbody>();
+
+        rb.AddForce(cam.forward * throwForce, ForceMode.Impulse);
     }
 
     public void Die() {

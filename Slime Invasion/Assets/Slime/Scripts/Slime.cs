@@ -46,6 +46,10 @@ public class Slime : MonoBehaviour, IDamageable {
     }
 
     public void TakeDamage(int damage) {
+        if (health <= 0) {
+            return;
+        }
+
         health = Mathf.Clamp(health - damage, 0, maxHealth);
 
         Debug.Log($"{gameObject.name}, id:{gameObject.GetInstanceID()} take {damage} damage, {health} remain");
