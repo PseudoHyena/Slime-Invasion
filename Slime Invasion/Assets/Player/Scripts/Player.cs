@@ -95,12 +95,14 @@ public class Player : MonoBehaviour, IDamageable {
 
         if (transform.position.y + capsuleCollider.height / 2f + 0.1f < waterHeight) {
             if (!isUnderWater) {
+                GunShoot.CanShoot = false;
                 isUnderWater = true;
                 startDive = Time.time;
                 airSlider.gameObject.SetActive(true);
             }
         }
         else {
+            GunShoot.CanShoot = true;
             isUnderWater = false;
             airSlider.gameObject.SetActive(false);
             airSlider.value = canBreathSec;

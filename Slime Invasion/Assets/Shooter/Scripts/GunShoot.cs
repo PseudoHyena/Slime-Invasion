@@ -11,7 +11,9 @@ public class GunShoot : MonoBehaviour {
 	[SerializeField] ParticleSystem muzzleFlash;
 	[SerializeField] ParticleSystem cartridgeEjection;
 
-	float nextFire;												
+    public static bool CanShoot { get; set; } = true;
+
+    float nextFire;												
 	Animator anim;
 
     Camera cam;
@@ -26,7 +28,7 @@ public class GunShoot : MonoBehaviour {
 	}
 
     void Fire() {
-        if (Input.GetButtonDown("Fire1") && Time.time > nextFire) {
+        if (CanShoot && Input.GetButtonDown("Fire1") && Time.time > nextFire) {
             nextFire = Time.time + fireRate;
             muzzleFlash.Play();
             cartridgeEjection.Play();
