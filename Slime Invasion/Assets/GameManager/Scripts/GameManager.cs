@@ -20,6 +20,10 @@ public class GameManager : MonoBehaviour {
         LevelGenerator.singleton.OnEndOfLevelGeneration += SpawnPlayer;
     }
 
+    void Update() {
+        CheckForBackToMenu();    
+    }
+
     public void GameOver() {
         EndGame = true;
 
