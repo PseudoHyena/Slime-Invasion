@@ -28,6 +28,8 @@ public class LevelGenerator : MonoBehaviour {
     }
 
     void Start() {
+        noiseSettings.seed = MenuManager.Seed;
+
         GenerateLevel();
         vegetationGenerator = GetComponent<VegetationGenerator>();
         vegetationGenerator.SpawnVegetation(noiseSettings.size);
