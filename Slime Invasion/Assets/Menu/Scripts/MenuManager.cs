@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class MenuManager : MonoBehaviour {
 
@@ -8,7 +9,12 @@ public class MenuManager : MonoBehaviour {
 
     public static int Seed { get; private set; }
 
-	public void SetSeedFromInput() {
+    void Start() {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    public void SetSeedFromInput() {
         Seed = seedInputField.text.GetHashCode();
     }
 
