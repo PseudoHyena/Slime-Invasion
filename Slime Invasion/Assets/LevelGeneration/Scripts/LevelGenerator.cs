@@ -18,12 +18,10 @@ public class LevelGenerator : MonoBehaviour {
 
     VegetationGenerator vegetationGenerator;
 
-    float[,] noiseMap;
-
     public NoiseSettings Settings { get { return noiseSettings; } }
     public TerrainType[] Regions { get { return regions; } }
-    public float[,] NoiseMap { get { return noiseMap; } }
-    public float[,] HeightMap { get; set; } = null;
+    public float[,] NoiseMap { get; private set; }
+    public float[,] HeightMap { get; private set; }
 
     void Awake() {
         singleton = this;    
@@ -32,13 +30,13 @@ public class LevelGenerator : MonoBehaviour {
     void Start() {
         GenerateLevel();
         vegetationGenerator = GetComponent<VegetationGenerator>();
-        vegetationGenerator.Generate();
+        vegetationGenerator.SpawnVegetation(noiseSettings.size);
     }
 
     public void GenerateLevel() {
         noiseSettings.ValidateValues();
 
-        noiseMap = Noise.GenerateNoiseMap(noiseSettings);
+        NoiseMap = Noise.GenerateNoiseMap(noiseSettings);
         ApplyModifications();
 
         DrawMesh(MeshGenerator.GenerateMesh(HeightMap), GenerateTexture());
@@ -56,7 +54,7 @@ public class LevelGenerator : MonoBehaviour {
         Color[] colorMap = new Color[noiseSettings.size * noiseSettings.size];
         for (int y = 0; y < noiseSettings.size; y++) {
             for (int x = 0; x < noiseSettings.size; x++) {
-                float currentHeight = noiseMap[y, x];
+                float currentHeight = NoiseMap[y, x];
                 for (int i = 0; i < regions.Length; i++) {
                     if (currentHeight <= regions[i].height) {
                         colorMap[y * noiseSettings.size + x] = regions[i].Color;
@@ -79,8 +77,8 @@ public class LevelGenerator : MonoBehaviour {
 
         for (int y = 0; y < noiseSettings.size; y++) {
             for (int x = 0; x < noiseSettings.size; x++) {
-                noiseMap[y, x] = Mathf.Clamp01(noiseMap[y, x] - falloff[y, x]);
-                HeightMap[y, x] = heightCurve.Evaluate(noiseMap[y, x]) * heightMultiplier;
+                NoiseMap[y, x] = Mathf.Clamp01(NoiseMap[y, x] - falloff[y, x]);
+                HeightMap[y, x] = heightCurve.Evaluate(NoiseMap[y, x]) * heightMultiplier;
             }
         }
     }

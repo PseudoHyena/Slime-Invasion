@@ -46,7 +46,7 @@ public class Spawner : MonoBehaviour {
     }
 
     void Spawn() {
-        if (Time.time >= nextSpawn) {
+        if (canSpawn && Time.time >= nextSpawn) {
             if (startLevel == 1f) {
                 if (BigSlimesCount == bigSlimesMaxCount) {
                     return;

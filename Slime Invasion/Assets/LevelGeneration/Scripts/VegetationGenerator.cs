@@ -11,17 +11,7 @@ public class VegetationGenerator : MonoBehaviour {
     [SerializeField] [Range(0, 100)] int grassSpawnChance;
     [SerializeField] [Range(0, 100)] int treesSpawnChance;
 
-    int size;
-
-    void Start() {
-        size = LevelGenerator.singleton.Settings.size;
-    }
-
-    public void Generate() {
-        SpawnVegetation();
-    }
-
-    void SpawnVegetation() {
+    public void SpawnVegetation(int size) {
         float[,] heightMap = LevelGenerator.singleton.HeightMap;
         float[,] noiseMap = LevelGenerator.singleton.NoiseMap;
 
