@@ -24,6 +24,10 @@ public class GunShoot : MonoBehaviour {
 	}
 
 	void Update () {
+        if (PauseMenuManager.IsGamePaused) {
+            return;
+        }
+
         Fire();
 	}
 

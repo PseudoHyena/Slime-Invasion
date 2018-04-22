@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using UnityStandardAssets.Characters.FirstPerson;
+using TMPro;
 
 public class MenuManager : MonoBehaviour {
 
-    [SerializeField] InputField seedInputField;
+    [SerializeField] TMP_InputField seedInputField;
 
     public static int Seed { get; private set; }
 

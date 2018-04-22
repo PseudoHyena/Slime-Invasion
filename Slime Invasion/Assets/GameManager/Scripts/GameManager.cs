@@ -20,10 +20,6 @@ public class GameManager : MonoBehaviour {
         LevelGenerator.singleton.OnEndOfLevelGeneration += SpawnPlayer;
     }
 
-    void Update() {
-        CheckForBackToMenu();    
-    }
-
     public void GameOver() {
         EndGame = true;
 
@@ -65,12 +61,5 @@ public class GameManager : MonoBehaviour {
         }
 
         player.transform.position = new Vector3(maxX - size / 2, maxHeight + 1f,  size / 2 - maxY);
-    }
-
-    //Temporarily
-    void CheckForBackToMenu() {
-        if (Input.GetButton("Cancel")) {
-            //SceneManager.LoadScene("Menu");
-        }
     }
 }
