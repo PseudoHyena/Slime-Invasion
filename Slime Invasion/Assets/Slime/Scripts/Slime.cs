@@ -45,6 +45,21 @@ public class Slime : MonoBehaviour, IDamageable {
         CheckForOutOfMap();    
     }
 
+    void OnCollisionEnter(Collision collision) {
+        if (collision.gameObject.tag == "Slime") {
+            return;
+        }
+
+        if (collision.gameObject.tag == "Dynamite") {
+            return;
+        }
+
+        IDamageable damageableObj = collision.gameObject.GetComponent<IDamageable>();
+        if (damageableObj != null) {
+            damageableObj.TakeDamage(gameObject, damage);
+        }
+    }
+
     public void TakeDamage(GameObject sender, int damage) {
         if (health <= 0) {
             return;
@@ -74,6 +89,10 @@ public class Slime : MonoBehaviour, IDamageable {
 
     public void Die(bool byBoomer = false) {
         SpawnChildren(byBoomer);
+
+        if (byBoomer == false && slimeType == SlimeType.Boomer) {
+            DropDynamite();
+        }
     }
 
     void SpawnChildren(bool byBoomer) {
@@ -128,19 +147,12 @@ public class Slime : MonoBehaviour, IDamageable {
         Destroy(gameObject);
     }
 
-    void OnCollisionEnter(Collision collision) {
-        if (collision.gameObject.tag == "Slime") {
-            return;
-        }
+    void DropDynamite() {
+        Dynamite dynamite = GetComponentInChildren<Dynamite>();
 
-        if (collision.gameObject.tag == "Dynamite") {
-            return;
-        }
-
-        IDamageable damageableObj = collision.gameObject.GetComponent<IDamageable>();
-        if (damageableObj != null) {
-            damageableObj.TakeDamage(gameObject, damage);
-        }
+        dynamite.transform.parent = null;
+        dynamite.GetComponent<Rigidbody>().isKinematic = false;
+        dynamite.GetComponent<Collider>().isTrigger = false;
     }
 }
 

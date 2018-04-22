@@ -134,7 +134,7 @@ public class Dynamite : MonoBehaviour, IDamageable, IPickupable {
     }
 
     void FollowTarget() {
-        if (!isCling) {
+        if (!isCling || target == null) {
             return;
         }
 
