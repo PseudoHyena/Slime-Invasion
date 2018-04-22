@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class FollowPlayer : MonoBehaviour {
+public class SlimeMovement : MonoBehaviour {
 
     [SerializeField] float viewDistance = 30f;
     [SerializeField] float AttackDistance = 5f;
@@ -22,10 +22,13 @@ public class FollowPlayer : MonoBehaviour {
 
     bool isPlayerVisible;
 
+    float jumpForcePresset;
+
     void Start() {
         slime = GetComponent<Slime>();
 
         sqrViewDistance = viewDistance * viewDistance * slime.Level * slime.Level;
+        jumpForcePresset = jumpForce;
 
         rb = GetComponent<Rigidbody>();
     }
@@ -36,6 +39,7 @@ public class FollowPlayer : MonoBehaviour {
             return;
         }
 
+        CheckForWaterImpact();
         CheckVisibility();
         ChooseTarget();
         LookAtPlayer();
@@ -49,7 +53,6 @@ public class FollowPlayer : MonoBehaviour {
     }
 
     void CheckVisibility() {
-        //For best performance
         Vector3 fromSlimeToPlayer = player.position - transform.position;
         float sqrDistatnce = fromSlimeToPlayer.x * fromSlimeToPlayer.x + fromSlimeToPlayer.z * fromSlimeToPlayer.z;
 
@@ -71,6 +74,16 @@ public class FollowPlayer : MonoBehaviour {
         }
 
         return false;
+    }
+
+    void CheckForWaterImpact() {
+        if (transform.position.y - slime.Level + (slime.Level / 10f) < GameManager.WaterHeight) {
+            jumpForce = jumpForcePresset / 2f;
+        }
+        else {
+            jumpForce = jumpForcePresset;
+        }
+        
     }
 
     void ChooseTarget() {

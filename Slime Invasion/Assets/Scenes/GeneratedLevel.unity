@@ -316,6 +316,10 @@ Prefab:
       propertyPath: m_TagString
       value: Spawner
       objectReference: {fileID: 0}
+    - target: {fileID: 1666072605378810, guid: e75de999e5683234d8d389c44f61b099, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e75de999e5683234d8d389c44f61b099, type: 2}
   m_IsPrefabParent: 0
@@ -524,6 +528,11 @@ Prefab:
     - target: {fileID: 4059313263441764, guid: e75de999e5683234d8d389c44f61b099, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114863249952945128, guid: e75de999e5683234d8d389c44f61b099,
+        type: 2}
+      propertyPath: "spawnBoomerChan\u0441e"
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e75de999e5683234d8d389c44f61b099, type: 2}
@@ -1626,6 +1635,10 @@ Prefab:
       propertyPath: m_TagString
       value: Spawner
       objectReference: {fileID: 0}
+    - target: {fileID: 1666072605378810, guid: e75de999e5683234d8d389c44f61b099, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e75de999e5683234d8d389c44f61b099, type: 2}
   m_IsPrefabParent: 0
@@ -1700,6 +1713,10 @@ Prefab:
     - target: {fileID: 1666072605378810, guid: e75de999e5683234d8d389c44f61b099, type: 2}
       propertyPath: m_TagString
       value: Spawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 1666072605378810, guid: e75de999e5683234d8d389c44f61b099, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e75de999e5683234d8d389c44f61b099, type: 2}
