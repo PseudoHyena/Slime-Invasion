@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityStandardAssets.Characters.FirstPerson;
+using TMPro;
 
 public class Player : MonoBehaviour, IDamageable {
 
@@ -15,7 +16,9 @@ public class Player : MonoBehaviour, IDamageable {
     [SerializeField] int maxHealth = 100;
     [SerializeField] Slider healthSlider;
     [SerializeField] Slider airSlider;
-    [SerializeField] Text dynamiteCountText;
+
+    [SerializeField] TextMeshProUGUI dynamiteCountText;
+    [SerializeField] TextMeshProUGUI scoreText;
 
     [SerializeField] GameObject dynamite;
     [SerializeField] Transform dynamiteSpawnPoint;
@@ -30,6 +33,18 @@ public class Player : MonoBehaviour, IDamageable {
         set {
             dynamiteCountText.text = $"Dynamite: {value}";
             dynamiteCount = value;
+        }
+    }
+
+    int score;
+    public int Score {
+        get {
+            return score;
+        }
+        set {
+            Debug.Log("!");
+            scoreText.text = $"x{value}";
+            score = value;
         }
     }
 

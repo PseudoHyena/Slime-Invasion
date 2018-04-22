@@ -9,7 +9,7 @@ public class Slime : MonoBehaviour, IDamageable {
 
     Slider healthSlider;
 
-    GameManager manager;
+    Player player;
 
     SlimeType slimeType;
 
@@ -36,9 +36,9 @@ public class Slime : MonoBehaviour, IDamageable {
         healthSlider.maxValue = maxHealth;
         healthSlider.value = maxHealth;
 
-        manager = FindObjectOfType<GameManager>();
-
         health = maxHealth;
+
+        player = GameObject.FindGameObjectWithTag("Player")?.GetComponent<Player>();
     }
 
     void Update() {
@@ -57,13 +57,9 @@ public class Slime : MonoBehaviour, IDamageable {
         healthSlider.value = health;
 
         if (health <= 0) {
-            if (sender.GetComponent<Player>() != null) {
-                Debug.Log("222222");
-            }
-            else if (sender.GetComponent<Dynamite>() != null) {
-                if (sender.GetComponent<Dynamite>().ImpactFromPlayer == true) {
-                    Debug.Log("1111111");
-                }
+            if (sender.GetComponent<Player>() != null ||
+                sender.GetComponent<Dynamite>()?.ImpactFromPlayer == true) {
+                player.Score += maxHealth;
             }
 
             Die();

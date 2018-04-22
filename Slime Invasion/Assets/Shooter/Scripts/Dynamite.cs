@@ -18,6 +18,10 @@ public class Dynamite : MonoBehaviour, IDamageable, IPickupable {
 
     float startBurning;
 
+    bool isCling;
+    Transform target;
+    Vector3 delta;
+
     void Start() {
         if (isActive) {
             sparksEffect.SetActive(true);
@@ -32,6 +36,7 @@ public class Dynamite : MonoBehaviour, IDamageable, IPickupable {
     }
 
     void Update() {
+        FollowTarget();
         CheckForUnderwater();
         WaitForExploding();
     }
@@ -113,7 +118,10 @@ public class Dynamite : MonoBehaviour, IDamageable, IPickupable {
     }
 
     public void Cling(Transform slime) {
-        transform.parent = slime;
+        isCling = true;
+        delta = slime.position - transform.position;
+        target = slime;
+
         GetComponent<Rigidbody>().isKinematic = true;
         GetComponent<Collider>().isTrigger = true;
     }
@@ -123,5 +131,13 @@ public class Dynamite : MonoBehaviour, IDamageable, IPickupable {
             isActive = false;
             sparksEffect.SetActive(false);
         }
+    }
+
+    void FollowTarget() {
+        if (!isCling) {
+            return;
+        }
+
+        transform.position = target.position - delta;
     }
 }
