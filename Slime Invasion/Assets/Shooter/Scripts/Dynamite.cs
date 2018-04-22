@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
 
-public class Dynamite : MonoBehaviour, IDamageable {
+public class Dynamite : MonoBehaviour, IDamageable, IPickupable {
 
+    [SerializeField] bool isActive;
     [SerializeField] float timeToExplode = 8f;
     [SerializeField] float explosionRadius = 15f;
     [SerializeField] float explosionForce = 10f;
     [SerializeField] int maxDamage = 200;
     [SerializeField] int minDamage = 50;
     [SerializeField] GameObject explosionEffect;
+    [SerializeField] GameObject sparksEffect;
     int health = 1;
 
     Slime parent;
@@ -15,17 +17,32 @@ public class Dynamite : MonoBehaviour, IDamageable {
     float startBurning;
 
     void Start() {
+        if (isActive) {
+            sparksEffect.SetActive(true);
+        }
+
         startBurning = Time.time;
 
         parent = GetComponentInParent<Slime>(); 
     }
 
     void Update() {
+        CheckForUnderwater();
         WaitForExploding();
     }
 
+    private void OnCollisionEnter(Collision collision) {
+        GameObject go = collision.gameObject;
+        if (go.tag == "Player") {
+            PickUp(go.GetComponent<Player>());
+        }
+        else if (go.tag == "Slime" && go.GetComponent<Slime>().Level == 1f) {
+            Cling(go.transform);
+        }
+    }
+
     void WaitForExploding() {
-        if (Time.time >= startBurning + timeToExplode) {
+        if (isActive && Time.time >= startBurning + timeToExplode) {
             Explode();
         }
     }
@@ -74,6 +91,28 @@ public class Dynamite : MonoBehaviour, IDamageable {
 
         if (health <= 0) {
             Explode();
+        }
+    }
+
+    public void PickUp(Player player) {
+        if (isActive) {
+            return;
+        }
+
+        player.DynamitCount++;
+        Destroy(gameObject);
+    }
+
+    public void Cling(Transform slime) {
+        transform.parent = slime;
+        GetComponent<Rigidbody>().isKinematic = true;
+        GetComponent<Collider>().isTrigger = true;
+    }
+
+    void CheckForUnderwater() {
+        if (transform.position.y <= GameManager.WaterHeight) {
+            isActive = false;
+            sparksEffect.SetActive(false);
         }
     }
 }

@@ -128,6 +128,10 @@ public class Slime : MonoBehaviour, IDamageable {
             return;
         }
 
+        if (collision.gameObject.tag == "Dynamite") {
+            return;
+        }
+
         IDamageable damageableObj = collision.gameObject.GetComponent<IDamageable>();
         if (damageableObj != null) {
             damageableObj.TakeDamage(damage);

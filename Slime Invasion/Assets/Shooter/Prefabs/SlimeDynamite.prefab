@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 114797942070805012}
   m_Layer: 0
   m_Name: SlimeDynamite
-  m_TagString: Untagged
+  m_TagString: Dynamite
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,7 +78,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1732879202422940
 GameObject:
   m_ObjectHideFlags: 1
@@ -261,6 +261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f313111be768dc418262f5938360fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isActive: 1
   timeToExplode: 8
   explosionRadius: 7
   explosionForce: 50
@@ -268,6 +269,7 @@ MonoBehaviour:
   minDamage: 50
   explosionEffect: {fileID: 1000013462590818, guid: ecdd96beb7f93494880c052dfccf9dc1,
     type: 2}
+  sparksEffect: {fileID: 1528165610147056}
 --- !u!198 &198095038322070914
 ParticleSystem:
   m_ObjectHideFlags: 1

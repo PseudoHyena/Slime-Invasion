@@ -15,10 +15,23 @@ public class Player : MonoBehaviour, IDamageable {
     [SerializeField] int maxHealth = 100;
     [SerializeField] Slider healthSlider;
     [SerializeField] Slider airSlider;
+    [SerializeField] Text dynamiteCountText;
 
     [SerializeField] GameObject dynamite;
+    [SerializeField] Transform dynamiteSpawnPoint;
     [SerializeField] float throwRate = 0.5f;
     [SerializeField] float throwForce = 10f;
+
+    int dynamiteCount;
+    public int DynamitCount {
+        get {
+            return dynamiteCount;
+        }
+        set {
+            dynamiteCountText.text = $"Dynamite: {value}";
+            dynamiteCount = value;
+        }
+    }
 
     float nextThrow;
 
@@ -132,18 +145,18 @@ public class Player : MonoBehaviour, IDamageable {
     }
 
     void CheckForDynamiteThrow() {
-        if (Input.GetButton("Fire2") && Time.time > nextThrow) {
+        if (Input.GetButton("Fire2") && Time.time > nextThrow && DynamitCount > 0) {
             nextThrow = Time.time + throwRate;
             ThrowDynamite();
         }
     }
 
     void ThrowDynamite() {
-        GameObject go = Instantiate(dynamite, transform.position, Quaternion.identity);
-
+        GameObject go = Instantiate(dynamite, dynamiteSpawnPoint.position, Quaternion.identity);
         Rigidbody rb = go.GetComponent<Rigidbody>();
 
-        rb.AddForce(cam.forward * throwForce, ForceMode.Impulse);
+        rb.AddForce(dynamiteSpawnPoint.forward * throwForce, ForceMode.Impulse);
+        DynamitCount--;
     }
 
     public void Die() {

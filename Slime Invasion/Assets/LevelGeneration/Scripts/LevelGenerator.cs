@@ -28,6 +28,7 @@ public class LevelGenerator : MonoBehaviour {
     }
 
     void Start() {
+        Debug.Log($"The level was loaded with seed: {MenuManager.Seed}");
         noiseSettings.seed = MenuManager.Seed;
 
         GenerateLevel();
