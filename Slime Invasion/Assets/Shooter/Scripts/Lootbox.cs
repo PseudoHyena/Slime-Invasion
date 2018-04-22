@@ -7,7 +7,7 @@ public class Lootbox : MonoBehaviour, IDamageable {
     [SerializeField] float timeToDestroyFlinders;
     [SerializeField] int health;
 
-    public void TakeDamage(int damage) {
+    public void TakeDamage(GameObject sender, int damage) {
         if (health <= 0) {
             return;
         }
@@ -28,6 +28,8 @@ public class Lootbox : MonoBehaviour, IDamageable {
     void Crack() {
         Destroy(Instantiate(crackBox, transform.position, transform.rotation, GameObject.FindGameObjectWithTag("Environment").transform), 
             timeToDestroyFlinders);
+
+        LootboxSpawner.Count--;
 
         Destroy(gameObject);
     }

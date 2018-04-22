@@ -12,6 +12,8 @@ public class Dynamite : MonoBehaviour, IDamageable, IPickupable {
     [SerializeField] GameObject sparksEffect;
     int health = 1;
 
+    public bool ImpactFromPlayer { get; private set; } = false;
+
     Slime parent;
 
     float startBurning;
@@ -24,6 +26,9 @@ public class Dynamite : MonoBehaviour, IDamageable, IPickupable {
         startBurning = Time.time;
 
         parent = GetComponentInParent<Slime>(); 
+        if (parent == null) {
+            ImpactFromPlayer = true;
+        }
     }
 
     void Update() {
@@ -77,12 +82,12 @@ public class Dynamite : MonoBehaviour, IDamageable, IPickupable {
             IDamageable damageableObj = item.GetComponent<IDamageable>();
 
             if (damageableObj != null) {
-                damageableObj.TakeDamage((int)Mathf.Lerp(maxDamage, minDamage, (item.transform.position - transform.position).magnitude / explosionRadius));
+                damageableObj.TakeDamage(gameObject, (int)Mathf.Lerp(maxDamage, minDamage, (item.transform.position - transform.position).magnitude / explosionRadius));
             }
         }
     }
 
-    public void TakeDamage(int damage) {
+    public void TakeDamage(GameObject sender, int damage) {
         if (health <= 0) {
             return;
         }
@@ -90,6 +95,10 @@ public class Dynamite : MonoBehaviour, IDamageable, IPickupable {
         health -= damage;
 
         if (health <= 0) {
+            if (sender.GetComponent<Player>() != null) {
+                ImpactFromPlayer = true;
+            }
+
             Explode();
         }
     }

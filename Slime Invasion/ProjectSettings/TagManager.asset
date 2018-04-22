@@ -7,6 +7,7 @@ TagManager:
   - Slime
   - Environment
   - Dynamite
+  - Spawner
   layers:
   - Default
   - TransparentFX

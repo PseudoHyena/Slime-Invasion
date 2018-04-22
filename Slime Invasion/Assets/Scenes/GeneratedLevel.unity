@@ -312,6 +312,10 @@ Prefab:
       propertyPath: startLevel
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1666072605378810, guid: e75de999e5683234d8d389c44f61b099, type: 2}
+      propertyPath: m_TagString
+      value: Spawner
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e75de999e5683234d8d389c44f61b099, type: 2}
   m_IsPrefabParent: 0
@@ -521,6 +525,15 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114863249952945128, guid: e75de999e5683234d8d389c44f61b099,
+        type: 2}
+      propertyPath: "spawnBoomerChan\u0441e"
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1666072605378810, guid: e75de999e5683234d8d389c44f61b099, type: 2}
+      propertyPath: m_TagString
+      value: Spawner
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e75de999e5683234d8d389c44f61b099, type: 2}
   m_IsPrefabParent: 0
@@ -680,8 +693,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 680135174}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 11.498, z: -11}
+  m_LocalRotation: {x: 0.22523491, y: 0.14551468, z: 0.034042314, w: -0.9627751}
+  m_LocalPosition: {x: -20.685741, y: 1.1162844, z: 22.49708}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2020917345}
@@ -1543,6 +1556,10 @@ Prefab:
       propertyPath: maxCount
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 1370459318572882, guid: 47531fff68d632a468535f0d33377b60, type: 2}
+      propertyPath: m_TagString
+      value: Spawner
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 47531fff68d632a468535f0d33377b60, type: 2}
   m_IsPrefabParent: 0
@@ -1614,6 +1631,10 @@ Prefab:
       propertyPath: startLevel
       value: 0.25
       objectReference: {fileID: 0}
+    - target: {fileID: 1666072605378810, guid: e75de999e5683234d8d389c44f61b099, type: 2}
+      propertyPath: m_TagString
+      value: Spawner
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e75de999e5683234d8d389c44f61b099, type: 2}
   m_IsPrefabParent: 0
@@ -1684,6 +1705,10 @@ Prefab:
         type: 2}
       propertyPath: startLevel
       value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1666072605378810, guid: e75de999e5683234d8d389c44f61b099, type: 2}
+      propertyPath: m_TagString
+      value: Spawner
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e75de999e5683234d8d389c44f61b099, type: 2}

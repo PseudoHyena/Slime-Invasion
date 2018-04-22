@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Spawner : MonoBehaviour {
+public class Spawner : MonoBehaviour, ISpawner {
 
     [SerializeField] GameObject regularPrefab;
     [SerializeField] GameObject boomerPrefab;
@@ -26,7 +26,7 @@ public class Spawner : MonoBehaviour {
     float nextSpawn;
 
     void Start() {
-        LevelGenerator.singleton.OnEndOfLevelGeneration += BeginSpawn;    
+        //LevelGenerator.singleton.OnEndOfLevelGeneration += BeginSpawn;    
     }
 
     void Update() {
@@ -43,7 +43,7 @@ public class Spawner : MonoBehaviour {
         }
     }
 
-    void Spawn() {
+    public void Spawn() {
         if (canSpawn && Time.time >= nextSpawn) {
             if (startLevel == 1f) {
                 if (BigSlimesCount == bigSlimesMaxCount) {
@@ -94,7 +94,7 @@ public class Spawner : MonoBehaviour {
         }
     }
 
-    void BeginSpawn() {
+    public void BeginSpawn() {
         canSpawn = true;
     }
 }

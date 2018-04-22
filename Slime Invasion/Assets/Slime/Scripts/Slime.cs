@@ -45,7 +45,7 @@ public class Slime : MonoBehaviour, IDamageable {
         CheckForOutOfMap();    
     }
 
-    public void TakeDamage(int damage) {
+    public void TakeDamage(GameObject sender, int damage) {
         if (health <= 0) {
             return;
         }
@@ -57,6 +57,15 @@ public class Slime : MonoBehaviour, IDamageable {
         healthSlider.value = health;
 
         if (health <= 0) {
+            if (sender.GetComponent<Player>() != null) {
+                Debug.Log("222222");
+            }
+            else if (sender.GetComponent<Dynamite>() != null) {
+                if (sender.GetComponent<Dynamite>().ImpactFromPlayer == true) {
+                    Debug.Log("1111111");
+                }
+            }
+
             Die();
         }
     }
@@ -134,7 +143,7 @@ public class Slime : MonoBehaviour, IDamageable {
 
         IDamageable damageableObj = collision.gameObject.GetComponent<IDamageable>();
         if (damageableObj != null) {
-            damageableObj.TakeDamage(damage);
+            damageableObj.TakeDamage(gameObject, damage);
         }
     }
 }

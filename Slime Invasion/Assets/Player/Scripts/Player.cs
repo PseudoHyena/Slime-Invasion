@@ -83,7 +83,7 @@ public class Player : MonoBehaviour, IDamageable {
         movementPresset.JumpForce = controller.movementSettings.JumpForce;
     }
 
-    public void TakeDamage(int damage) {
+    public void TakeDamage(GameObject sender, int damage) {
         if (health <= 0) {
             return;
         }

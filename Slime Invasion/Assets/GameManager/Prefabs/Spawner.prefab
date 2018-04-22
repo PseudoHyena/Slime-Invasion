@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 114863249952945128}
   m_Layer: 0
   m_Name: Spawner
-  m_TagString: Untagged
+  m_TagString: Spawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -60,3 +60,6 @@ MonoBehaviour:
   startMaxHealth: 100
   startDamage: 50
   startLevel: 1
+  smallSlimesMaxCount: 30
+  mediumSlimesMaxCount: 20
+  bigSlimesMaxCount: 10

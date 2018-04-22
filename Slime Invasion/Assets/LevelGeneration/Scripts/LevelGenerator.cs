@@ -45,6 +45,7 @@ public class LevelGenerator : MonoBehaviour {
         DrawMesh(MeshGenerator.GenerateMesh(HeightMap), GenerateTexture());
 
         OnEndOfLevelGeneration?.Invoke();
+        BeginSpawnEntity();
     }
 
     void DrawMesh(MeshData meshData, Texture2D texture) {
@@ -83,6 +84,14 @@ public class LevelGenerator : MonoBehaviour {
                 NoiseMap[y, x] = Mathf.Clamp01(NoiseMap[y, x] - falloff[y, x]);
                 HeightMap[y, x] = heightCurve.Evaluate(NoiseMap[y, x]) * heightMultiplier;
             }
+        }
+    }
+
+    void BeginSpawnEntity() {
+        GameObject[] spawners = GameObject.FindGameObjectsWithTag("Spawner");
+
+        foreach (var item in spawners) {
+            item.GetComponent<ISpawner>()?.BeginSpawn();
         }
     }
 }

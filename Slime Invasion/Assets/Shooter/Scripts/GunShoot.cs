@@ -42,11 +42,9 @@ public class GunShoot : MonoBehaviour {
             Debug.DrawRay(rayOrigin, cam.transform.forward * weaponRange, Color.red, 2f, true);
 
             if (Physics.Raycast(ray, out hit, weaponRange)) {
-                Debug.Log($"Player hit {hit.collider.name}, id:{hit.collider.GetInstanceID()}");
-
                 IDamageable damageableObj = hit.collider.GetComponent<IDamageable>();
                 if (damageableObj != null) {
-                    damageableObj.TakeDamage(damage);
+                    damageableObj.TakeDamage(GetComponentInParent<Player>().gameObject, damage);
                 }
             }
         }

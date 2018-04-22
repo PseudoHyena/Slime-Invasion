@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     } 
 
-    void SpawnPlayer() {
+    public void SpawnPlayer() {
         GameObject player = Instantiate(playerPrefab, new Vector3(0f, 12f, 0f), Quaternion.identity);
         player.name = "Player";
 
@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour {
     //Temporarily
     void CheckForBackToMenu() {
         if (Input.GetButton("Cancel")) {
-            SceneManager.LoadScene("Menu");
+            //SceneManager.LoadScene("Menu");
         }
     }
 }
