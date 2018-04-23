@@ -13,6 +13,8 @@ public class GunShoot : MonoBehaviour {
 
     public static bool CanShoot { get; set; } = true;
 
+    AudioSource audioSource;
+
     float nextFire;												
 	Animator anim;
 
@@ -20,6 +22,7 @@ public class GunShoot : MonoBehaviour {
 
 	void Start () {
 		anim = GetComponent<Animator> ();
+        audioSource = GetComponent<AudioSource>();
         cam = Camera.main;
 	}
 
@@ -34,8 +37,12 @@ public class GunShoot : MonoBehaviour {
     void Fire() {
         if (CanShoot && Input.GetButtonDown("Fire1") && Time.time > nextFire) {
             nextFire = Time.time + fireRate;
+
+            audioSource.Play();
+
             muzzleFlash.Play();
             cartridgeEjection.Play();
+
             anim.SetTrigger("Fire");
 
             Vector3 rayOrigin = cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));

@@ -10,6 +10,9 @@ public class Dynamite : MonoBehaviour, IDamageable, IPickupable {
     [SerializeField] int minDamage = 50;
     [SerializeField] GameObject explosionEffect;
     [SerializeField] GameObject sparksEffect;
+    [SerializeField] GameObject explosionSound;
+    [SerializeField] GameObject wickSound;
+
     int health = 1;
 
     public bool ImpactFromPlayer { get; private set; } = false;
@@ -24,6 +27,7 @@ public class Dynamite : MonoBehaviour, IDamageable, IPickupable {
 
     void Start() {
         if (isActive) {
+            wickSound.SetActive(true);
             sparksEffect.SetActive(true);
         }
 
@@ -46,7 +50,7 @@ public class Dynamite : MonoBehaviour, IDamageable, IPickupable {
         if (go.tag == "Player") {
             PickUp(go.GetComponent<Player>());
         }
-        else if (go.tag == "Slime" && go.GetComponent<Slime>().Level == 1f) {
+        else if (go.tag == "Slime" && go.GetComponent<Slime>().Level >= 0.5f) {
             Cling(go.transform);
         }
     }
@@ -58,9 +62,9 @@ public class Dynamite : MonoBehaviour, IDamageable, IPickupable {
     }
 
     public void Explode() {
-        if (explosionEffect != null) {
-            Instantiate(explosionEffect, transform.position, Quaternion.identity).SetActive(true);
-        }
+        Instantiate(explosionEffect, transform.position, Quaternion.identity).SetActive(true);
+
+        Destroy(Instantiate(explosionSound, transform.position, Quaternion.identity), 6f);
 
         DamageAll();
 
@@ -130,6 +134,7 @@ public class Dynamite : MonoBehaviour, IDamageable, IPickupable {
         if (transform.position.y <= GameManager.WaterHeight) {
             isActive = false;
             sparksEffect.SetActive(false);
+            wickSound.SetActive(false);
         }
     }
 

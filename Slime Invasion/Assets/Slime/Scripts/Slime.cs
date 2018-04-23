@@ -6,6 +6,9 @@ public class Slime : MonoBehaviour, IDamageable {
     public float Level { get; private set; }
 
     [SerializeField] GameObject regularPrefab;
+    [SerializeField] AudioClip hurtSound;
+
+    AudioSource audioSource;
 
     Slider healthSlider;
 
@@ -38,6 +41,8 @@ public class Slime : MonoBehaviour, IDamageable {
 
         health = maxHealth;
 
+        audioSource = GetComponent<AudioSource>();
+
         player = GameObject.FindGameObjectWithTag("Player")?.GetComponent<Player>();
     }
 
@@ -68,6 +73,9 @@ public class Slime : MonoBehaviour, IDamageable {
         health = Mathf.Clamp(health - damage, 0, maxHealth);
 
         Debug.Log($"{gameObject.name}, id:{gameObject.GetInstanceID()} take {damage} damage, {health} remain");
+
+        audioSource.clip = hurtSound;
+        audioSource.Play();
 
         healthSlider.value = health;
 

@@ -7,12 +7,20 @@ public class Lootbox : MonoBehaviour, IDamageable {
     [SerializeField] float timeToDestroyFlinders;
     [SerializeField] int health;
 
+    AudioSource audioSource;
+
+    void Start() {
+        audioSource = GetComponent<AudioSource>();    
+    }
+
     public void TakeDamage(GameObject sender, int damage) {
         if (health <= 0) {
             return;
         }
 
         health -= damage;
+
+        audioSource.Play();
 
         if (health <= 0) {
             SpawnLoot();

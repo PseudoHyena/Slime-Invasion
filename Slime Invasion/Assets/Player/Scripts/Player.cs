@@ -25,6 +25,8 @@ public class Player : MonoBehaviour, IDamageable {
     [SerializeField] float throwRate = 0.5f;
     [SerializeField] float throwForce = 10f;
 
+    [SerializeField] AudioClip hurtSound;
+
     int dynamiteCount;
     public int DynamitCount {
         get {
@@ -48,6 +50,8 @@ public class Player : MonoBehaviour, IDamageable {
         }
     }
 
+    public bool IsUnderWater { get; private set; } = false;
+
     float nextThrow;
 
     float health;
@@ -55,7 +59,8 @@ public class Player : MonoBehaviour, IDamageable {
     float waterHeight;
     float canBreathSec = 20f;
     float startDive;
-    bool isUnderWater = false;
+
+    AudioSource audioSource;
 
     GameManager manager;
 
@@ -74,6 +79,8 @@ public class Player : MonoBehaviour, IDamageable {
 
         controller = GetComponent<RigidbodyFirstPersonController>();
         capsuleCollider = GetComponent<CapsuleCollider>();
+
+        audioSource = GetComponent<AudioSource>();
 
         waterHeight = GameManager.WaterHeight;
         airSlider.maxValue = canBreathSec;
@@ -107,6 +114,11 @@ public class Player : MonoBehaviour, IDamageable {
 
         Debug.Log($"{gameObject.name}, id:{gameObject.GetInstanceID()} take {damage} damage, {health} remain");
 
+        if (!audioSource.isPlaying) {
+            audioSource.clip = hurtSound;
+            audioSource.Play();
+        }
+
         healthSlider.value = health;
 
         if (health <= 0) {
@@ -137,21 +149,21 @@ public class Player : MonoBehaviour, IDamageable {
         }
 
         if (transform.position.y + capsuleCollider.height / 2f + 0.1f < waterHeight) {
-            if (!isUnderWater) {
+            if (!IsUnderWater) {
                 GunShoot.CanShoot = false;
-                isUnderWater = true;
+                IsUnderWater = true;
                 startDive = Time.time;
                 airSlider.gameObject.SetActive(true);
             }
         }
         else {
             GunShoot.CanShoot = true;
-            isUnderWater = false;
+            IsUnderWater = false;
             airSlider.gameObject.SetActive(false);
             airSlider.value = canBreathSec;
         }
 
-        if (isUnderWater) {
+        if (IsUnderWater) {
             airSlider.value = startDive + canBreathSec - Time.time;
             if (Time.time > startDive + canBreathSec) {
                 Die();

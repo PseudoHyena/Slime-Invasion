@@ -9,7 +9,9 @@ public class SlimeMovement : MonoBehaviour {
     [SerializeField] float maxJumpAngle = 20f;
     [SerializeField] float minJumpAngle = 10f;
     [SerializeField] float jumpRate = 1f;
+    [SerializeField] AudioClip jumpSound;
 
+    AudioSource audioSource;
 
     Slime slime;
     Transform player;
@@ -29,6 +31,8 @@ public class SlimeMovement : MonoBehaviour {
 
         sqrViewDistance = viewDistance * viewDistance * slime.Level * slime.Level;
         jumpForcePresset = jumpForce;
+
+        audioSource = GetComponent<AudioSource>();
 
         rb = GetComponent<Rigidbody>();
     }
@@ -109,6 +113,9 @@ public class SlimeMovement : MonoBehaviour {
     void Follow(Vector3 pos) {
         Vector3 fromSlimeToPlayer = (pos - transform.position);
         fromSlimeToPlayer.y = Mathf.Lerp(minJumpAngle, maxJumpAngle, fromSlimeToPlayer.magnitude / viewDistance / AttackDistance);
+
+        audioSource.clip = jumpSound;
+        audioSource.Play();
 
         rb.AddForce(fromSlimeToPlayer.normalized * jumpForce, ForceMode.Impulse);
     }
