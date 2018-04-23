@@ -44,7 +44,6 @@ public class Player : MonoBehaviour, IDamageable {
             return score;
         }
         set {
-            Debug.Log("!");
             scoreText.text = $"x{value}";
             score = value;
         }
@@ -172,7 +171,7 @@ public class Player : MonoBehaviour, IDamageable {
     }
 
     void CheckForDynamiteThrow() {
-        if (Input.GetButton("Fire2") && Time.time > nextThrow && DynamitCount > 0) {
+        if (Input.GetButton("Dynamite") && Time.time > nextThrow && DynamitCount > 0) {
             nextThrow = Time.time + throwRate;
             ThrowDynamite();
         }
