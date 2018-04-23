@@ -1,10 +1,7 @@
 ﻿using UnityEngine;
 
+//Main class for level generation
 public class LevelGenerator : MonoBehaviour {
-
-    public static LevelGenerator singleton;
-
-    public System.Action OnEndOfLevelGeneration;
 
     [SerializeField] NoiseSettings noiseSettings;
     [SerializeField] [Range(1f, 50f)] float heightMultiplier;
@@ -15,6 +12,10 @@ public class LevelGenerator : MonoBehaviour {
     [SerializeField] MeshCollider meshCollider;
 
     [SerializeField] TerrainType[] regions;
+
+    public static LevelGenerator singleton;
+
+    public System.Action OnEndOfLevelGeneration;
 
     VegetationGenerator vegetationGenerator;
 

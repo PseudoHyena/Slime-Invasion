@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.Audio;
 
+//Сlass representing the main functionality for the menu
 public class MenuManager : MonoBehaviour {
 
     [SerializeField] TMP_InputField seedInputField;

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+//Class generating noise map
 public static class Noise {
 
 	public static float[,] GenerateNoiseMap(NoiseSettings settings) {

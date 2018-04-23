@@ -1,18 +1,19 @@
 ﻿using UnityEngine;
 
+//Class that spawn lootboxes
 public class LootboxSpawner : MonoBehaviour, ISpawner {
 
     [SerializeField] GameObject lootbox;
     [SerializeField] float spawnRate;
     [SerializeField] int maxCount;
 
-    public static int Count { get; set; }
-
     bool canSpawn = false;
 
     float nextSpawn;
 
     Transform player;
+
+    public static int Count { get; set; }
 
     void Start() {
         //LevelGenerator.singleton.OnEndOfLevelGeneration += BeginSpawn;

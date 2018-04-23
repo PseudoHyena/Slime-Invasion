@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+//Main class for the slimes
 public class Slime : MonoBehaviour, IDamageable {
-
-    public float Level { get; private set; }
 
     [SerializeField] GameObject regularPrefab;
     [SerializeField] AudioClip hurtSound;
@@ -22,6 +21,8 @@ public class Slime : MonoBehaviour, IDamageable {
     int damage;
 
     bool isInitialized = false;
+
+    public float Level { get; private set; }
 
     public void Initialize(int maxHealth, int damage, float level, SlimeType type = SlimeType.Regular) {
         if (isInitialized) {

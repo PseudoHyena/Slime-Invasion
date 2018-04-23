@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+//Main class for the lootboxes
 public class Lootbox : MonoBehaviour, IDamageable {
 
     [SerializeField] GameObject loot;

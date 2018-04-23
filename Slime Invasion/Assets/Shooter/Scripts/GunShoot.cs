@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+//Class allowing player to shoot
 [RequireComponent(typeof(Slime))]
 public class GunShoot : MonoBehaviour {
 
@@ -11,8 +12,6 @@ public class GunShoot : MonoBehaviour {
 	[SerializeField] ParticleSystem muzzleFlash;
 	[SerializeField] ParticleSystem cartridgeEjection;
 
-    public static bool CanShoot { get; set; } = true;
-
     AudioSource audioSource;
 
     float nextFire;												
@@ -20,7 +19,9 @@ public class GunShoot : MonoBehaviour {
 
     Camera cam;
 
-	void Start () {
+    public static bool CanShoot { get; set; } = true;
+
+    void Start () {
 		anim = GetComponent<Animator> ();
         audioSource = GetComponent<AudioSource>();
         cam = Camera.main;

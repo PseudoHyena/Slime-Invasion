@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityStandardAssets.Characters.FirstPerson;
 using TMPro;
 
+//Main class for player
 public class Player : MonoBehaviour, IDamageable {
 
     struct MovementPresset {
@@ -28,28 +29,8 @@ public class Player : MonoBehaviour, IDamageable {
     [SerializeField] AudioClip hurtSound;
 
     int dynamiteCount;
-    public int DynamitCount {
-        get {
-            return dynamiteCount;
-        }
-        set {
-            dynamiteCountText.text = $"Dynamite: {value}";
-            dynamiteCount = value;
-        }
-    }
 
     int score;
-    public int Score {
-        get {
-            return score;
-        }
-        set {
-            scoreText.text = $"x{value}";
-            score = value;
-        }
-    }
-
-    public bool IsUnderWater { get; private set; } = false;
 
     float nextThrow;
 
@@ -68,6 +49,28 @@ public class Player : MonoBehaviour, IDamageable {
     CapsuleCollider capsuleCollider;
 
     Transform cam;
+
+    public bool IsUnderWater { get; private set; } = false;
+
+    public int Score {
+        get {
+            return score;
+        }
+        set {
+            scoreText.text = $"x{value}";
+            score = value;
+        }
+    }
+
+    public int DynamitCount {
+        get {
+            return dynamiteCount;
+        }
+        set {
+            dynamiteCountText.text = $"Dynamite: {value}";
+            dynamiteCount = value;
+        }
+    }
 
     void Start() {
         health = maxHealth;

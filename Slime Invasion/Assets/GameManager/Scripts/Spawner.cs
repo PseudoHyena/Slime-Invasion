@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+//Class that spawn the slimes
 public class Spawner : MonoBehaviour, ISpawner {
 
     [SerializeField] GameObject regularPrefab;
@@ -20,7 +21,6 @@ public class Spawner : MonoBehaviour, ISpawner {
     public static int SmallSlimesCount { get; set; } = 0;
     public static int MediumSlimesCount { get; set; } = 0;
     public static int BigSlimesCount { get; set; } = 0;
-
 
     bool canSpawn = false;
     float nextSpawn;

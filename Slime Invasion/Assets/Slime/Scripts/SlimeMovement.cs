@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+//Class responsible for the movement of slimes 
 [RequireComponent(typeof(Rigidbody))]
 public class SlimeMovement : MonoBehaviour {
 
@@ -38,6 +39,10 @@ public class SlimeMovement : MonoBehaviour {
     }
 
     void Update() {
+        if (PauseMenuManager.IsGamePaused) {
+            return;
+        }
+
         if (player == null) {
             CheckForPlayer();
             return;

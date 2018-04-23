@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+//Class generating mesh
 public static class MeshGenerator {
 
 	public static MeshData GenerateMesh(float[,] heightMap) {

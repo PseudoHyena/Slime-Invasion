@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
+//Class allowing to view health bar of slimes when look at they
 public class GunAim : MonoBehaviour {
 
     [SerializeField] float ShowHealthRange = 50f;

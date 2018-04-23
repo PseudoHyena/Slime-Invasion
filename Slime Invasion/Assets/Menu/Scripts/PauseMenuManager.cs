@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
+//Class allowing to pause the game
 public class PauseMenuManager : MonoBehaviour {
 
     [SerializeField] GameObject pauseManu;
+
     public static bool IsGamePaused { get; private set; }
 
     private void Start() {

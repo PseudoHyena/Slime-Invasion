@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+//Class that play water sounds
 public class WaterListner : MonoBehaviour {
 
     [SerializeField] AudioClip waterSound;

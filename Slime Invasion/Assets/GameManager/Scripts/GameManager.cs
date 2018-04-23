@@ -2,17 +2,18 @@
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+//Class respondenting for player spawn and level restart
 public class GameManager : MonoBehaviour {
+
+    [SerializeField] Text status;
+    [SerializeField] GameObject playerPrefab;
+    [SerializeField] Transform water;
 
     public bool EndGame { get; private set; } = false;
 
     public static float GameBottomBorder { get; set; } = -10f;
     public static float GameFieldLength { get; set; }
     public static float WaterHeight { get; private set; }
-
-    [SerializeField] Text status;
-    [SerializeField] GameObject playerPrefab;
-    [SerializeField] Transform water;
 
     void Start() {
         WaterHeight = water.transform.position.y;
@@ -24,13 +25,6 @@ public class GameManager : MonoBehaviour {
         EndGame = true;
 
         status.text = "GAVE OVER";
-        Invoke("Restart", 2f);
-    }
-
-    public void GameWin() {
-        EndGame = true;
-
-        status.text = "YOU WIN";
         Invoke("Restart", 2f);
     }
 

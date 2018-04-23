@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+//Main class for dynimites
 public class Dynamite : MonoBehaviour, IDamageable, IPickupable {
 
     [SerializeField] bool isActive;
@@ -15,8 +16,6 @@ public class Dynamite : MonoBehaviour, IDamageable, IPickupable {
 
     int health = 1;
 
-    public bool ImpactFromPlayer { get; private set; } = false;
-
     Slime parent;
 
     float startBurning;
@@ -24,6 +23,8 @@ public class Dynamite : MonoBehaviour, IDamageable, IPickupable {
     bool isCling;
     Transform target;
     Vector3 delta;
+
+    public bool ImpactFromPlayer { get; private set; } = false;
 
     void Start() {
         if (isActive) {

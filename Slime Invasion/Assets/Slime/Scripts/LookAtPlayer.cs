@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+//Class allowing slimes to look at player
 public class LookAtPlayer : MonoBehaviour {
 
     Transform mainCam;
@@ -9,7 +10,7 @@ public class LookAtPlayer : MonoBehaviour {
     }
 
     void Update () {
-		if (mainCam != null) {
+		if (mainCam != null && !PauseMenuManager.IsGamePaused) {
             transform.rotation = Quaternion.LookRotation(transform.position - mainCam.position);
         }
 	}

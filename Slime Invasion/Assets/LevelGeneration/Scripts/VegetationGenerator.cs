@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+//Class representing the generation of vegetation
 public class VegetationGenerator : MonoBehaviour {
 
     [SerializeField] Transform grass;
