@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+//Class that set volume depending on the distance to the player
 [RequireComponent(typeof(AudioSource))]
 public class SoundVolumeSetter : MonoBehaviour {
 
