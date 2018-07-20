@@ -25,7 +25,10 @@ public class Spawner : MonoBehaviour, ISpawner {
     bool canSpawn = false;
     float nextSpawn;
 
+    float gameFieldLength;
+
     void Start() {
+        gameFieldLength = LevelGenerator.singleton.Settings.size;
         //LevelGenerator.singleton.OnEndOfLevelGeneration += BeginSpawn;    
     }
 
@@ -66,8 +69,8 @@ public class Spawner : MonoBehaviour, ISpawner {
             Vector3 pos = transform.position
                     + new Vector3(Random.Range(-1f, 1f), Random.Range(1f, 1.5f), Random.Range(-1f, 1f));
 
-            pos.x = Mathf.Clamp(pos.x, -GameManager.GameFieldLength, GameManager.GameFieldLength);
-            pos.z = Mathf.Clamp(pos.z, -GameManager.GameFieldLength, GameManager.GameFieldLength);
+            pos.x = Mathf.Clamp(pos.x, -gameFieldLength, gameFieldLength);
+            pos.z = Mathf.Clamp(pos.z, -gameFieldLength, gameFieldLength);
 
             if (Random.Range(0, 100) <= spawnBoomerChanсe) {
                 GameObject go = Instantiate(boomerPrefab, pos, Quaternion.identity, transform);

@@ -71,12 +71,12 @@ public static class Noise {
 
 [System.Serializable]
 public class NoiseSettings {
-    public int size = 100;
+    public int size = 200;
     public float scale = 43f;
-    public int octaves = 4;
+    public int octaves = 6;
 
     [Range(0f, 1f)] public float persistance = 0.5f;
-    public float lacunarity = 3f;
+    public float lacunarity = 2f;
 
     public int seed = 0;
 

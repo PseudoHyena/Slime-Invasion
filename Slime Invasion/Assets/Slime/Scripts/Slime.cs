@@ -22,6 +22,8 @@ public class Slime : MonoBehaviour, IDamageable {
 
     bool isInitialized = false;
 
+    float gameFieldLength;
+
     public float Level { get; private set; }
 
     public void Initialize(int maxHealth, int damage, float level, SlimeType type = SlimeType.Regular) {
@@ -39,6 +41,8 @@ public class Slime : MonoBehaviour, IDamageable {
         healthSlider = gameObject.GetComponentInChildren<Slider>(true);
         healthSlider.maxValue = maxHealth;
         healthSlider.value = maxHealth;
+
+        gameFieldLength = LevelGenerator.singleton.Settings.size;
 
         health = maxHealth;
 
@@ -127,8 +131,8 @@ public class Slime : MonoBehaviour, IDamageable {
             Vector3 pos = transform.position
                     + new Vector3(Random.Range(-i * 2f, i * 2f), Random.Range(0, 1), Random.Range(-i * 2f, i * 2f));
 
-            pos.x = Mathf.Clamp(pos.x, -GameManager.GameFieldLength, GameManager.GameFieldLength);
-            pos.z = Mathf.Clamp(pos.z, -GameManager.GameFieldLength, GameManager.GameFieldLength);
+            pos.x = Mathf.Clamp(pos.x, -gameFieldLength, gameFieldLength);
+            pos.z = Mathf.Clamp(pos.z, -gameFieldLength, gameFieldLength);
 
             GameObject go = Instantiate(regularPrefab, pos, Quaternion.identity, transform.parent);
             go.name = $"Slime lvl:{Level / splitIndex}, type: {SlimeType.Regular.ToString()}";

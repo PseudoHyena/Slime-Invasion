@@ -12,12 +12,9 @@ public class GameManager : MonoBehaviour {
     public bool EndGame { get; private set; } = false;
 
     public static float GameBottomBorder { get; set; } = -10f;
-    public static float GameFieldLength { get; set; }
-    public static float WaterHeight { get; private set; }
+    public static float WaterHeight { get; private set; } = 6.5f;
 
     void Start() {
-        WaterHeight = water.transform.position.y;
-        GameFieldLength = LevelGenerator.singleton.Settings.size;
         LevelGenerator.singleton.OnEndOfLevelGeneration += SpawnPlayer;
     }
 

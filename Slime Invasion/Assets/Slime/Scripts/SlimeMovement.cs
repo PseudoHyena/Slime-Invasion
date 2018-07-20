@@ -29,11 +29,16 @@ public class SlimeMovement : MonoBehaviour {
 
     float jumpForcePresset;
 
+    float gameFieldLength;
+
+    Vector3 target;
+
     void Start() {
         slime = GetComponent<Slime>();
 
         sqrViewDistance = viewDistance * viewDistance * slime.Level * slime.Level;
         jumpForcePresset = jumpForce;
+        gameFieldLength = LevelGenerator.singleton.Settings.size;
 
         audioSource = GetComponent<AudioSource>();
 
@@ -47,13 +52,12 @@ public class SlimeMovement : MonoBehaviour {
 
         if (player == null) {
             CheckForPlayer();
-            return;
         }
 
         CheckForWaterImpact();
         CheckVisibility();
         ChooseTarget();
-        LookAtPlayer();
+        LookAtTarget();
     }
 
     void CheckForPlayer() {
@@ -64,6 +68,11 @@ public class SlimeMovement : MonoBehaviour {
     }
 
     void CheckVisibility() {
+        if (player == null) {
+            isPlayerVisible = false;
+            return;
+        }
+
         Vector3 fromSlimeToPlayer = player.position - transform.position;
         float sqrDistatnce = fromSlimeToPlayer.x * fromSlimeToPlayer.x + fromSlimeToPlayer.z * fromSlimeToPlayer.z;
 
@@ -102,33 +111,37 @@ public class SlimeMovement : MonoBehaviour {
             nextJump = Time.time + jumpRate;
 
             if (isPlayerVisible) {
-                Follow(player.position);
+                target = player.position;
             }
             else {
                 Vector3 dest = transform.position
                     + new Vector3(Random.Range(-viewDistance, viewDistance), 0f, Random.Range(-viewDistance, viewDistance));
 
-                dest.x = Mathf.Clamp(dest.x, -GameManager.GameFieldLength, GameManager.GameFieldLength);
-                dest.z = Mathf.Clamp(dest.z, -GameManager.GameFieldLength, GameManager.GameFieldLength);
+                dest.x = Mathf.Clamp(dest.x, -gameFieldLength, gameFieldLength);
+                dest.z = Mathf.Clamp(dest.z, -gameFieldLength, gameFieldLength);
                 dest.y = 1f;
 
-                Follow(dest);
+                target = dest;
             }
+
+            Follow();
         }
     }
 
-    void Follow(Vector3 pos) {
-        Vector3 fromSlimeToPlayer = (pos - transform.position);
-        fromSlimeToPlayer.y = Mathf.Lerp(minJumpAngle, maxJumpAngle, fromSlimeToPlayer.magnitude / viewDistance / AttackDistance);
+    void Follow() {
+        Vector3 fromSlimeToTarget = (target - transform.position);
+        fromSlimeToTarget.y = Mathf.Lerp(minJumpAngle, maxJumpAngle, fromSlimeToTarget.magnitude / viewDistance / AttackDistance);
 
         audioSource.clip = jumpSound;
         audioSource.Play();
 
-        rb.AddForce(fromSlimeToPlayer.normalized * jumpForce, ForceMode.Impulse);
+        rb.AddForce(fromSlimeToTarget.normalized * jumpForce, ForceMode.Impulse);
     }
 
-    void LookAtPlayer() {
-        Vector3 direction = player.position - transform.position;
+    void LookAtTarget() {
+        Vector3 pos = isPlayerVisible ? player.position : target;
+
+        Vector3 direction = pos - transform.position;
         direction.y = 0f;
 
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * rotationSpeed);

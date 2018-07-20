@@ -1132,6 +1132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewDistance: 50
   AttackDistance: 5
+  rotationSpeed: 11
   jumpForce: 15
   maxJumpAngle: 20
   minJumpAngle: 8

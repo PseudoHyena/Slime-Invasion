@@ -8,7 +8,7 @@ public class SoundVolumeSetter : MonoBehaviour {
 
     AudioSource audioSource;
 
-    Transform player;
+    Transform cam;
 
     float sqrMaxDistance;
 
@@ -18,12 +18,12 @@ public class SoundVolumeSetter : MonoBehaviour {
     }
 
     void Update() {
-        if (player == null) {
-            player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        if (cam == null) {
+            cam = Camera.main.transform;
             return;
         }
 
-        float sqrDistance = Vector3.SqrMagnitude(player.position - transform.position);
+        float sqrDistance = Vector3.SqrMagnitude(cam.position - transform.position);
         audioSource.volume = Mathf.Lerp(1f, 0f, sqrDistance / sqrMaxDistance);
     }
 }
