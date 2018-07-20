@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-//Class allowing slimes to look at player
+//Class allowing health bar to look at player
 public class LookAtPlayer : MonoBehaviour {
 
     Transform mainCam;

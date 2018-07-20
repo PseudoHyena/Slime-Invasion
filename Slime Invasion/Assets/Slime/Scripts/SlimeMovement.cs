@@ -6,10 +6,12 @@ public class SlimeMovement : MonoBehaviour {
 
     [SerializeField] float viewDistance = 30f;
     [SerializeField] float AttackDistance = 5f;
+    [SerializeField] float rotationSpeed = 2f;
     [SerializeField] float jumpForce = 5f;
     [SerializeField] float maxJumpAngle = 20f;
     [SerializeField] float minJumpAngle = 10f;
     [SerializeField] float jumpRate = 1f;
+
     [SerializeField] AudioClip jumpSound;
 
     AudioSource audioSource;
@@ -128,8 +130,7 @@ public class SlimeMovement : MonoBehaviour {
     void LookAtPlayer() {
         Vector3 direction = player.position - transform.position;
         direction.y = 0f;
-        direction *= Time.deltaTime;
 
-        transform.rotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * rotationSpeed);
     }
 }
